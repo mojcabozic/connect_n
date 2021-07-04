@@ -1,0 +1,58 @@
+body{
+    background-color: black;
+    text-align: center; 
+}
+
+table{
+    border: 5px solid white;
+    width: 5%;
+    background-color: white;
+    box-shadow: 10px 10px 5px rgb(54, 54, 54);
+}
+
+.horizontal-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+tr{
+    border: 5px solid white;
+    width: 40%;
+}
+
+td{
+    height: 100px;
+    width: 100px;
+}
+
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.hidden{
+    visibility: hidden;
+    background-color: black;
+}
+
+td:hover .hidden{
+    visibility: visible;
+    background-color: black;
+    cursor: pointer
+}
+
+.zetoncek{
+    border: 0px;
+    padding: 0px;
+    background-color: black;
+
+}
+
+.poseben{
+    border: 5px solid black;
+    width: 5%;
+    background-color: black;
+    box-shadow: none;
+}
+

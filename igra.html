@@ -1,0 +1,39 @@
+% import model
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>N v vrsto</title> 
+        <link rel="stylesheet" href="/css/igra.css">
+    </head>
+
+    <body>
+        <table class="poseben" align="center">
+            <tr class= "poseben" height="100px">
+            % barva_zetona = igra.igralec1.barva if igra.na_potezi == 1 else igra.igralec2.barva            # nastavi barvo zetona na tistega igralca, ki je na vrsti
+
+            % st_igralca = igra.na_potezi
+            % for stolpec in range(igra.st_stolpcev):
+                <td> 
+                    <form action="/stolpec{{stolpec}}/{{st_igralca}}" method="POST" > 
+                        <button class = "zetoncek">
+                            <img class="hidden" src="/img/{{barva_zetona}}.png" width="90" height="90"> 
+                        </button>
+                    </form> 
+                </td>       
+            % end
+            </tr>
+        </table>
+        <div class="horizontal-flex" >
+            <table>
+            % for vrstica in range(igra.st_vrstic):
+                <tr>
+                    % for stolpec in range(igra.st_stolpcev):
+                    <td><img src="/img/{{igra.grid[vrstica][stolpec]}}.png" width="90" height="90"></td>
+                    % end
+                </tr>
+            % end
+            </table>
+        </div>
+    </body>

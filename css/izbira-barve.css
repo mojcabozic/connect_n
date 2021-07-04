@@ -1,0 +1,66 @@
+body{
+    background-color: black;
+    text-align: center;
+}
+
+h2{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#button1{
+    color: #FF6188;
+    border-color:  #FF6188;
+}
+
+#button2{
+    color: #FC9867;
+    border-color: #FC9867;
+}
+
+#button3{
+    color: #FFD866;
+    border-color:  #FFD866;
+}
+
+
+#button4{
+    color: #A9DC76;
+    border-color: #A9DC76;
+}
+
+#button5{
+    color: #78DCE8;
+    border-color:  #78DCE8;
+}
+
+#button6{
+    color: #AB9DF2;
+    border-color: #AB9DF2;
+}
+
+.horizontal-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.disabled button{
+    cursor:initial;
+    color: #949494 !important;
+    border-color:  #949494 !important;
+    
+}

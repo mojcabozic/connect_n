@@ -1,0 +1,37 @@
+% barve = [
+%     ("roza", "1"),
+%     ("oranzna", "2"),
+%     ("rumena", "3"),
+%     ("zelena", "4"),
+%     ("modra", "5"),
+%     ("vijolicna", "6")
+% ]
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/izbira-barve.css">
+        <title>N v vrsto</title> 
+
+    </head>
+    <body>
+        <h2>Igralec {{id_igralec}}:</h2>
+
+        <div class="horizontal-flex">
+            % for barva in barve:
+            <form class="{{"disabled" if barva[1] == skrij_barvo else "" }}" action="{{barva[1]}}" method="POST">
+                <button {{"disabled" if barva[1] == skrij_barvo else "" }} id="button{{barva[1]}}" type="submit">{{barva[0]}}</button>
+            </form>
+            % end
+        </div>
+
+    </body>
+</html>
