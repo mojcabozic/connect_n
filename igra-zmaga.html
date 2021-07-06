@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="/css/igra-zmaga.css">
     </head>
     <body>
-        <h2>Igralec {{"1" if igra.na_potezi == 2 else "2"}} je zmagal!</h2>
+        <h2>Zmagovalec je {{"igra.igralec1.ime" if igra.na_potezi == 2 else "igra.igralec2.ime"}}!</h2>
         <h2>Nova igra?</h2>
         <form action="/" method="POST">
             <button id="nova_igra" type="submit"></button>
