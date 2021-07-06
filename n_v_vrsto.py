@@ -29,6 +29,22 @@ def izberi_barvo(id_igralec):
 
     return bottle.template("izbira-barve.html", id_igralec = id_igralec, skrij_barvo = igra.igralec1.barva if id_igralec == "2" else None)
 
+@bottle.post("/ime-igralca-<id_igralec>")
+def nastavi_ime(id_igralec):
+    id_igre = bottle.request.get_cookie("idigre", secret=SECRET)
+    igra = upravljalec_iger.igre[id_igre]
+
+    ime = bottle.request.forms("ime_igralca")
+
+    if int(id_igralec) == 1:
+        igralec = igra.igralec1
+
+    else:
+        igralec = igra.igralec2
+
+    igralec.ime = ime
+
+
 
 @bottle.post("/izbira-barve/<id_igralec>/<barva>") 
 def izberi_barvo_post(id_igralec, barva):    # nastavi barvo

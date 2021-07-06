@@ -25,6 +25,13 @@
     <body>
         <h2>Igralec {{id_igralec}}:</h2>
 
+        <h2>Vpiši ime:</h2>
+
+        <form action="/ime-igralca-{{id_igralec}}" method="POST">
+            <input type="text" id="name_input" name="ime_igralca">
+        </form>
+        
+
         <div class="horizontal-flex">
             % for barva in barve:
             <form class="{{"disabled" if barva[1] == skrij_barvo else "" }}" action="{{barva[1]}}" method="POST">

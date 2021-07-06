@@ -80,6 +80,7 @@ class Igra:
                     zaporedne_pojavitve += 1
                     if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                         koncne_koordinate = (vrstica, stolpec)
+                        print(trenutna_barva)
                         return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[trenutna_barva - 1]}
 
                 else:
@@ -160,13 +161,6 @@ class Igra:
 
 
 
-
-
-
-
-    
-
-
 class Upravljalec_iger:
     def __init__(self):
         self.igre = {}
@@ -188,8 +182,9 @@ class Upravljalec_iger:
 
 
 class Igralec:
-    def __init__(self, barva):
+    def __init__(self, barva, ime):
         self.barva = barva
+        self.ime = ime
 
 
     
