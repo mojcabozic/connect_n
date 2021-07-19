@@ -80,8 +80,12 @@ class Igra:
                     zaporedne_pojavitve += 1
                     if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                         koncne_koordinate = (vrstica, stolpec)
-                        print(trenutna_barva)
-                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[trenutna_barva - 1]}
+
+                        if trenutna_barva == igralec1.barva:
+                            zmagovalec = 0
+                        else:
+                            zmagovalec = 1
+                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
 
                 else:
                     trenutna_barva = trenutna_celica
@@ -102,7 +106,13 @@ class Igra:
                     zaporedne_pojavitve += 1
                     if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                         koncne_koordinate = (vrstica, stolpec)
-                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[trenutna_barva - 1]}
+
+                        if trenutna_barva == igralec1.barva:
+                            zmagovalec = 0
+                        else:
+                            zmagovalec = 1
+                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
+                        
 
                 else:
                     trenutna_barva = trenutna_celica
@@ -126,7 +136,13 @@ class Igra:
                         zaporedne_pojavitve += 1
                         if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                             koncne_koordinate = (zamik, zacetni_stolpec + zamik)
-                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[trenutna_barva - 1]}
+
+                            if trenutna_barva == igralec1.barva:
+                                zmagovalec = 0
+                            else:
+                                zmagovalec = 1
+                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
+                            
 
                     else:
                         zacetne_koordinate = (zamik, zacetni_stolpec + zamik)
@@ -150,8 +166,13 @@ class Igra:
                         zaporedne_pojavitve += 1
                         if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                             koncne_koordinate = (zamik, zacetni_stolpec - zamik)
-                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[trenutna_barva - 1]}
 
+                            if trenutna_barva == igralec1.barva:
+                                zmagovalec = 0
+                            else:
+                                zmagovalec = 1
+                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
+                            
                     else:
                         zacetne_koordinate = (zamik, zacetni_stolpec - zamik)
                         trenutna_barva = trenutna_celica
@@ -182,11 +203,9 @@ class Upravljalec_iger:
 
 
 class Igralec:
-    def __init__(self, barva, ime):
+    def __init__(self, barva, ime = "igralec"):
         self.barva = barva
         self.ime = ime
-
-
     
 
 
