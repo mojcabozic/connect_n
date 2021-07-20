@@ -20,21 +20,20 @@ def nova_igra(tip_igre_str):
     id_igre = upravljalec_iger.nova_igra(tip_igre, igralec1, igralec2)
     bottle.response.set_cookie('idigre', id_igre, secret=SECRET, path='/')
 
-    return bottle.redirect('/izbira-barve/1/')
+    return bottle.redirect('/nastavi-ime/1/')
 
-@bottle.get("/izbira-barve/<id_igralec>/") # izbira barve za vsakega igralca
-def izberi_barvo(id_igralec):
-    id_igre = bottle.request.get_cookie("idigre", secret=SECRET)
-    igra = upravljalec_iger.igre[id_igre]
-
-    return bottle.template("izbira-barve.html", id_igralec = id_igralec, skrij_barvo = igra.igralec1.barva if id_igralec == "2" else None)
-
-@bottle.post("/ime-igralca-<id_igralec>")
+@bottle.get("/nastavi-ime/<id_igralec>/")
 def nastavi_ime(id_igralec):
     id_igre = bottle.request.get_cookie("idigre", secret=SECRET)
+
+    return bottle.template("nastavi-ime.html", id_igralec = id_igralec)
+
+@bottle.post("/nastavi-ime/<id_igralec>/")
+def nastavi_ime_post(id_igralec):
+    id_igre = bottle.request.get_cookie("idigre", secret=SECRET)
     igra = upravljalec_iger.igre[id_igre]
 
-    ime = bottle.request.forms("ime_igralca")
+    ime = bottle.request.forms["ime_igralca"]
 
     if int(id_igralec) == 1:
         igralec = igra.igralec1
@@ -44,6 +43,18 @@ def nastavi_ime(id_igralec):
 
     igralec.ime = ime
 
+    if int(id_igralec) == 1:
+        return bottle.redirect("/izbira-barve/1/")
+
+    else:
+        return bottle.redirect("/izbira-barve/2/")
+
+@bottle.get("/izbira-barve/<id_igralec>/") # izbira barve za vsakega igralca
+def izberi_barvo(id_igralec):
+    id_igre = bottle.request.get_cookie("idigre", secret=SECRET)
+    igra = upravljalec_iger.igre[id_igre]
+
+    return bottle.template("izbira-barve.html", id_igralec = id_igralec, skrij_barvo = igra.igralec1.barva if id_igralec == "2" else None)
 
 
 @bottle.post("/izbira-barve/<id_igralec>/<barva>") 
@@ -60,8 +71,8 @@ def izberi_barvo_post(id_igralec, barva):    # nastavi barvo
     igralec.barva = barva
 
     if int(id_igralec) == 1:
-        return bottle.redirect("/izbira-barve/2/")
-
+        return bottle.redirect("/nastavi-ime/2/")
+    
     else:
         return bottle.redirect("/igra/")
 

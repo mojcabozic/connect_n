@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/izbira-barve.css">
+        <title>N v vrsto</title> 
+
+    </head>
+    <body>
+        <h2>Igralec {{id_igralec}}:</h2>
+        <h2>Vpiši ime:</h2>
+
+        <form action="/nastavi-ime/{{id_igralec}}/" method="POST">
+            <input type="text" id="name_input" name="ime_igralca">
+        </form>
+
+    </body>
