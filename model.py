@@ -18,6 +18,7 @@ class Igra:
         self.igralec2 = igralec2
         self.na_potezi = 1
         self.grid = []
+        self.zapolnjen = False
 
 
     def prazen_grid(self):
@@ -31,29 +32,46 @@ class Igra:
 
         self.grid = grid_prazen
 
-    
+    def poln_stolpec(self, stolpec):
+        zapolnjen = True
+        
+        for i in range(self.st_vrstic):
+            if self.grid[i][stolpec] == 0:
+                zapolnjen = False
+
+        return zapolnjen
 
     def poteza(self, stolpec, st_igralca):
+        self.zapolnjen = False
         if st_igralca != self.na_potezi:
-            return "igralec ni na potezi"
+            return "Igralec ni na potezi!"
 
         if self.na_potezi == 1:
             barva_igralca = self.igralec1.barva
 
         else:
             barva_igralca = self.igralec2.barva
-        
+            
+        if self.poln_stolpec(stolpec) != True:
+            if st_igralca == 1:
+                self.na_potezi = 2
+
+            else:
+                self.na_potezi = 1
+
+        else:
+            self.zapolnjen = True
+
+            if st_igralca == 1:
+                self.na_potezi = 1
+
+            else:
+                self.na_potezi = 2
+
         for i in reversed(range(self.st_vrstic)):
             if self.grid[i][stolpec] == 0:
                 self.grid[i][stolpec] = int(barva_igralca) #nastima barvo zetona na pravo barvo
                 break
-            
-        if st_igralca == 1:
-            self.na_potezi = 2
-
-        else:
-            self.na_potezi = 1
-        #TODO: ugotovi kaj nrdit kadar je poln stolpec
 
     def zmaga(self):
         return Igra.zmaga_staticna(self.igralec1, self.igralec2, self.tip_igre, self.grid)

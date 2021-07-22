@@ -9,6 +9,12 @@
     </head>
 
     <body>
+        %if igra.zapolnjen == True:
+            <h2>Stolpec je zapolnjen!</h2>
+        %else:
+            <h2> </h2>
+        %end
+
         <table class="poseben" align="center">
             <tr class= "poseben" height="100px">
             % barva_zetona = igra.igralec1.barva if igra.na_potezi == 1 else igra.igralec2.barva            # nastavi barvo zetona na tistega igralca, ki je na vrsti
