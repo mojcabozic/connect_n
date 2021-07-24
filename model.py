@@ -19,6 +19,7 @@ class Igra:
         self.na_potezi = 1
         self.grid = []
         self.zapolnjen = False
+        self.neodlocena = False
 
 
     def prazen_grid(self):
@@ -197,6 +198,15 @@ class Igra:
                         zaporedne_pojavitve = 1
 
         return None
+
+    def neodlocena(self):
+        neodlocena_igra = True
+        for i in range(self.st_vrstic):
+            for j in range(self.st_stolpcev):
+                if self.grid[i][j] == 0:
+                    neodlocena_igra = False
+
+        return neodlocena_igra
 
 
 
