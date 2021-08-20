@@ -1,14 +1,3 @@
-#konstante:
-roza = "1"
-oranzna = "2"
-rumena = "3"
-zelena = "4"
-modra = "5"
-vijolicna = "6"
-
-
-
-
 class Igra:
     def __init__(self, tip_igre, igralec1, igralec2):
         self.tip_igre = tip_igre
@@ -18,9 +7,7 @@ class Igra:
         self.igralec2 = igralec2
         self.na_potezi = 1
         self.grid = []
-        self.zapolnjen = False
-        self.neodlocena = False
-
+        self.prikazi_zapolnjen = False
 
     def prazen_grid(self):
         grid_prazen = []
@@ -28,14 +15,14 @@ class Igra:
         for i in range(self.st_vrstic):
             vrstica = []
             for j in range(self.st_stolpcev):
-                    vrstica.append(0)
+                vrstica.append(0)
             grid_prazen.append(vrstica)
 
         self.grid = grid_prazen
 
     def poln_stolpec(self, stolpec):
         zapolnjen = True
-        
+
         for i in range(self.st_vrstic):
             if self.grid[i][stolpec] == 0:
                 zapolnjen = False
@@ -43,7 +30,8 @@ class Igra:
         return zapolnjen
 
     def poteza(self, stolpec, st_igralca):
-        self.zapolnjen = False
+        self.prikazi_zapolnjen = False
+
         if st_igralca != self.na_potezi:
             return "Igralec ni na potezi!"
 
@@ -52,7 +40,7 @@ class Igra:
 
         else:
             barva_igralca = self.igralec2.barva
-            
+
         if self.poln_stolpec(stolpec) != True:
             if st_igralca == 1:
                 self.na_potezi = 2
@@ -61,7 +49,7 @@ class Igra:
                 self.na_potezi = 1
 
         else:
-            self.zapolnjen = True
+            self.prikazi_zapolnjen = True
 
             if st_igralca == 1:
                 self.na_potezi = 1
@@ -71,14 +59,23 @@ class Igra:
 
         for i in reversed(range(self.st_vrstic)):
             if self.grid[i][stolpec] == 0:
-                self.grid[i][stolpec] = int(barva_igralca) #nastima barvo zetona na pravo barvo
+                # nastima barvo zetona na pravo barvo
+                self.grid[i][stolpec] = int(barva_igralca)
                 break
 
     def zmaga(self):
         return Igra.zmaga_staticna(self.igralec1, self.igralec2, self.tip_igre, self.grid)
-    
+
     # vrne zmagovalca, ce je zmagal
     # vrne None, ce ni noben zmagal
+
+    def neodlocena_igra(self):
+        neodlocena = True
+        for i in range(self.st_stolpcev):
+            if self.poln_stolpec(i) == False:
+                neodlocena = False
+
+        return neodlocena
 
     @staticmethod
     def zmaga_staticna(igralec1, igralec2, tip_igre, grid):
@@ -94,17 +91,17 @@ class Igra:
             koncne_koordinate = (0, 0)
 
             for stolpec in range(st_stolpcev):
-                trenutna_celica = grid[vrstica][stolpec] 
+                trenutna_celica = grid[vrstica][stolpec]
                 if trenutna_celica == trenutna_barva:
                     zaporedne_pojavitve += 1
                     if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                         koncne_koordinate = (vrstica, stolpec)
 
                         if trenutna_barva == igralec1.barva:
-                            zmagovalec = 0
-                        else:
                             zmagovalec = 1
-                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
+                        else:
+                            zmagovalec = 0
+                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec": igralca[zmagovalec]}
 
                 else:
                     trenutna_barva = trenutna_celica
@@ -120,18 +117,17 @@ class Igra:
             koncne_koordinate = (0, 0)
 
             for vrstica in range(st_vrstic):
-                trenutna_celica = grid[vrstica][stolpec] 
+                trenutna_celica = grid[vrstica][stolpec]
                 if trenutna_celica == trenutna_barva:
                     zaporedne_pojavitve += 1
                     if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
                         koncne_koordinate = (vrstica, stolpec)
 
                         if trenutna_barva == igralec1.barva:
-                            zmagovalec = 0
-                        else:
                             zmagovalec = 1
-                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
-                        
+                        else:
+                            zmagovalec = 0
+                        return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec": igralca[zmagovalec]}
 
                 else:
                     trenutna_barva = trenutna_celica
@@ -139,9 +135,9 @@ class Igra:
                     zaporedne_pojavitve = 1
 
         # diagonala gor-levo --> spodaj-desno
-        
 
-        for zacetni_stolpec in range(st_stolpcev - 1 - (tip_igre - 1), -st_stolpcev + (tip_igre - 1), -1):  # zacetnih n - 1 diagonal ni treba preverjati, ker je premalo mest za zmago, ce je tip igre = n
+        # zacetnih n - 1 diagonal ni treba preverjati, ker je premalo mest za zmago, ce je tip igre = n
+        for zacetni_stolpec in range(st_stolpcev - 1 - (tip_igre - 1), -st_stolpcev + (tip_igre - 1), -1):
             trenutna_barva = 0
             zaporedne_pojavitve = 0
             zacetne_koordinate = (0, 0)
@@ -149,19 +145,19 @@ class Igra:
 
             for zamik in range(st_vrstic):
                 if 0 <= zamik < st_vrstic and 0 <= zacetni_stolpec + zamik < st_stolpcev:
-                    trenutna_celica = grid[zamik][zacetni_stolpec + zamik] 
+                    trenutna_celica = grid[zamik][zacetni_stolpec + zamik]
 
                     if trenutna_celica == trenutna_barva:
                         zaporedne_pojavitve += 1
                         if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
-                            koncne_koordinate = (zamik, zacetni_stolpec + zamik)
+                            koncne_koordinate = (
+                                zamik, zacetni_stolpec + zamik)
 
                             if trenutna_barva == igralec1.barva:
-                                zmagovalec = 0
-                            else:
                                 zmagovalec = 1
-                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
-                            
+                            else:
+                                zmagovalec = 0
+                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec": igralca[zmagovalec]}
 
                     else:
                         zacetne_koordinate = (zamik, zacetni_stolpec + zamik)
@@ -169,7 +165,6 @@ class Igra:
                         zaporedne_pojavitve = 1
 
         # diagonala gor-desno --> spodaj-levo
-        
 
         for zacetni_stolpec in range(tip_igre - 1, 2 * st_stolpcev - 1, 1):
             trenutna_barva = 0
@@ -179,35 +174,26 @@ class Igra:
 
             for zamik in range(st_vrstic):
                 if 0 <= zamik < st_vrstic and 0 <= zacetni_stolpec - zamik < st_stolpcev:
-                    trenutna_celica = grid[zamik][zacetni_stolpec - zamik] 
+                    trenutna_celica = grid[zamik][zacetni_stolpec - zamik]
 
                     if trenutna_celica == trenutna_barva:
                         zaporedne_pojavitve += 1
                         if zaporedne_pojavitve >= tip_igre and trenutna_barva != 0:
-                            koncne_koordinate = (zamik, zacetni_stolpec - zamik)
+                            koncne_koordinate = (
+                                zamik, zacetni_stolpec - zamik)
 
                             if trenutna_barva == igralec1.barva:
-                                zmagovalec = 0
-                            else:
                                 zmagovalec = 1
-                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec" : igralca[zmagovalec]}
-                            
+                            else:
+                                zmagovalec = 0
+                            return {"z": zacetne_koordinate, "k": koncne_koordinate, "zmagovalec": igralca[zmagovalec]}
+
                     else:
                         zacetne_koordinate = (zamik, zacetni_stolpec - zamik)
                         trenutna_barva = trenutna_celica
                         zaporedne_pojavitve = 1
 
         return None
-
-    def neodlocena(self):
-        neodlocena_igra = True
-        for i in range(self.st_vrstic):
-            for j in range(self.st_stolpcev):
-                if self.grid[i][j] == 0:
-                    neodlocena_igra = False
-
-        return neodlocena_igra
-
 
 
 class Upravljalec_iger:
@@ -223,7 +209,7 @@ class Upravljalec_iger:
         nov_id = self.prost_id_igre()
         self.igre[nov_id] = Igra(tip_igre, igralec1, igralec2)
         self.igre[nov_id].prazen_grid()
-    
+
         return nov_id
 
     def izbrisi_igro(self, id_igre):
@@ -231,10 +217,6 @@ class Upravljalec_iger:
 
 
 class Igralec:
-    def __init__(self, barva, ime = "igralec"):
+    def __init__(self, barva, ime="igralec"):
         self.barva = barva
         self.ime = ime
-    
-
-
-
