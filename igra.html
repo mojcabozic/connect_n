@@ -4,15 +4,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>N v vrsto</title> 
+        <title>Connect n</title> 
         <link rel="stylesheet" href="/css/igra.css">
     </head>
 
     <body>
-        %if igra.zapolnjen == True:
+        %if igra.prikazi_zapolnjen == True:
             <h2>Stolpec je zapolnjen!</h2>
         %else:
-            <h2> </h2>
+            <p> 
+                <br>
+            </p>
         %end
 
         <table class="poseben" align="center">
@@ -32,14 +34,16 @@
             </tr>
         </table>
         <div class="horizontal-flex" >
-            <table>
-            % for vrstica in range(igra.st_vrstic):
-                <tr>
-                    % for stolpec in range(igra.st_stolpcev):
-                    <td><img src="/img/{{igra.grid[vrstica][stolpec]}}.png" width="90" height="90"></td>
-                    % end
-                </tr>
-            % end
-            </table>
+            <div>
+                <table class= "navaden">
+                % for vrstica in range(igra.st_vrstic):
+                    <tr>
+                        % for stolpec in range(igra.st_stolpcev):
+                        <td><img src="/img/{{igra.grid[vrstica][stolpec]}}.png" width="90" height="90"></td>
+                        % end
+                    </tr>
+                % end
+                </table>
+            </div>
         </div>
     </body>

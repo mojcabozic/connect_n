@@ -1,13 +1,21 @@
+
+@font-face{
+    font-family: Ranille;
+    src: url(RanilleNormalRegular-EaZJj);
+  }
+
 body{
     background-color: black;
-    text-align: center; 
+    text-align: -webkit-center; 
 }
 
-table{
+.navaden{
     border: 5px solid white;
-    width: 5%;
     background-color: white;
     box-shadow: 10px 10px 5px rgb(54, 54, 54);
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+
 }
 
 .horizontal-flex{
@@ -27,7 +35,7 @@ td{
 }
 
 h2{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Ranille;
     color: white;
 }
 
@@ -51,7 +59,6 @@ td:hover .hidden{
 
 .poseben{
     border: 5px solid black;
-    width: 5%;
     background-color: black;
     box-shadow: none;
 }

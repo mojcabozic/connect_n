@@ -2,16 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/css/izbira-barve.css">
-        <title>N v vrsto</title> 
+        <link rel="stylesheet" href="/css/nastavi-ime.css">
+        <title>Connect n</title> 
 
     </head>
     <body>
         <h2>Igralec {{id_igralec}}:</h2>
-        <h2>Vpiši ime:</h2>
 
         <form action="/nastavi-ime/{{id_igralec}}/" method="POST">
-            <input type="text" id="name_input" name="ime_igralca">
+            <input type="text" name="ime_igralca" maxlength="20" placeholder="Vpiši ime" >
         </form>
 
     </body>
