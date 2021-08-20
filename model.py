@@ -1,3 +1,11 @@
+#konstante:
+roza = "1"
+oranzna = "2"
+rumena = "3"
+zelena = "4"
+modra = "5"
+vijolicna = "6"
+
 class Igra:
     def __init__(self, tip_igre, igralec1, igralec2):
         self.tip_igre = tip_igre
